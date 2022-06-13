@@ -12,7 +12,9 @@ from sklearn import metrics
 from transformers import AdamW
 from transformers import get_linear_schedule_with_warmup
 from warnings import filterwarnings
+
 filterwarnings("ignore")
+torch.cuda.empty_cache()
 
 def run(load_model=False):
     dfx = pd.read_csv(config.TRAINING_FILE).fillna("none")

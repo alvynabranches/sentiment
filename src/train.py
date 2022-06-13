@@ -62,7 +62,7 @@ def run():
 
     best_accuracy = 0.832
     for epoch in range(config.START, config.EPOCHS):
-        # engine.train_fn(train_data_loader, model, optimizer, device, scheduler)
+        engine.train_fn(train_data_loader, model, optimizer, device, scheduler)
         outputs, targets = engine.eval_fn(valid_data_loader, model, device)
         outputs = np.array(outputs) >= 0.5
         accuracy = metrics.accuracy_score(targets, outputs)

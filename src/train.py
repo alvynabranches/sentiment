@@ -60,7 +60,7 @@ def run(load_model=False):
         optimizer, num_warmup_steps=0, num_training_steps=num_train_steps
     )
 
-    best_accuracy = 0.832
+    best_accuracy = 0.8498
     for epoch in range(config.START, config.EPOCHS):
         engine.train_fn(train_data_loader, model, optimizer, device, scheduler)
         outputs, targets = engine.eval_fn(valid_data_loader, model, device)

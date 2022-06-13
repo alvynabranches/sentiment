@@ -14,7 +14,7 @@ from transformers import get_linear_schedule_with_warmup
 from warnings import filterwarnings
 filterwarnings("ignore")
 
-def run():
+def run(load_model=False):
     dfx = pd.read_csv(config.TRAINING_FILE).fillna("none")
     dfx.sentiment = dfx.sentiment.apply(lambda x: 1 if x == "positive" else 0)
 
@@ -33,8 +33,8 @@ def run():
 
     device = torch.device(config.DEVICE)
     model = BERTBaseUncased()
-    model.forward
-    # model = transformers.BertModel.from_pretrained(config.BERT_PATH)
+    state_dict = torch.load(config.MODEL_PATH)
+    model.load_state_dict(state_dict)
     model.to(device)
 
     param_optimizer = list(model.named_parameters())

@@ -60,13 +60,13 @@ def run(load_model=False):
         optimizer, num_warmup_steps=0, num_training_steps=num_train_steps
     )
 
-    best_accuracy = 0.8498
+    best_accuracy = 0.8544
     for epoch in range(config.START, config.EPOCHS):
         engine.train_fn(train_data_loader, model, optimizer, device, scheduler)
         outputs, targets = engine.eval_fn(valid_data_loader, model, device)
         outputs = np.array(outputs) >= 0.5
         accuracy = metrics.accuracy_score(targets, outputs)
-        print(f"[Epoch {epoch} / {config.EPOCHS}]: Accuracy Score = {accuracy}")
+        print(f"[Epoch {epoch+1} / {config.EPOCHS}]: Accuracy Score = {accuracy}")
         if accuracy > best_accuracy:
             torch.save(model.state_dict(), config.MODEL_PATH)
             best_accuracy = accuracy

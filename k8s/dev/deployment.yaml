@@ -28,7 +28,7 @@ spec:
 
       containers:
       - name: "sentiment-analysis"
-        image: "gcr.io/self-serve-dev-261801/sentiment-analysis:<tag>"
+        image: "alvynabranches/sentiment-analysis:<tag>"
         imagePullPolicy: Always
         resources:
           limits:

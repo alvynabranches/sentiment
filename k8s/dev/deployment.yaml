@@ -1,0 +1,42 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "sentiment-analysis-dev"
+  namespace: "models"
+  labels:
+    app: "sentiment-analysis-dev"
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: "sentiment-analysis-dev"
+  template:
+    metadata:
+      labels:
+        app: "sentiment-analysis-dev"
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - sentiment-analysis
+            topologyKey: kubernetes.io/hostname
+
+      containers:
+      - name: "sentiment-analysis"
+        image: "gcr.io/self-serve-dev-261801/sentiment-analysis:<tag>"
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "1.0Gi"
+            cpu: "1000m"
+          requests:
+            memory: "1.0Gi"
+            cpu: "1000m"
+        envFrom:
+          - configMapRef:
+              name: "sentiment-core-config"

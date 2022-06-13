@@ -1,11 +1,12 @@
+import torch
 import transformers
 
-DEVICE = "cuda"
+DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 MAX_LEN = 64
 TRAIN_BATCH_SIZE = 8
 VALID_BATCH_SIZE = 4
-START = 4
-EPOCHS = 10
+START = 12
+EPOCHS = 50
 BERT_PATH = "bert-base-uncased"
 MODEL_PATH = "model.pt"
 TRAINING_FILE = "../input/imdb.csv"
